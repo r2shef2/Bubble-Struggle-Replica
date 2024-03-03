@@ -7,11 +7,14 @@ public class Player : MonoBehaviour {
 
 	public Rigidbody2D rb;
 
+	public Joystick joystick;
+
 	private float movement = 0f;
 
 	// Update is called once per frame
 	void Update () {
-		movement = Input.GetAxisRaw("Horizontal") * speed;
+		float inputForce = joystick.Horizontal;
+		movement = inputForce * speed;
 	}
 
 	void FixedUpdate ()
