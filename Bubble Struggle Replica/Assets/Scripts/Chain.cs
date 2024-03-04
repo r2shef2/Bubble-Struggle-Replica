@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chain : MonoBehaviour {
+public class Chain : MonoBehaviour 
+{
 
-	public Transform player;
-
-	public float speed = 2f;
-
-	// Update is called once per frame
-	void Update () 
-	{	
+    // Update is called once per frame
+    void Update () 
+	{
+		float speed = GameLogic.Instance.activeRogueStats.chainSpeed;
 		transform.localScale = transform.localScale + Vector3.up * Time.deltaTime * speed;
 	}
 }

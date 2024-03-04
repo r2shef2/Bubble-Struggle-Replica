@@ -6,13 +6,28 @@ public class PlayerShooting : MonoBehaviour
 {
 	public Chain chain;
 
-	// Update is called once per frame
-	void Update()
-	{
+	public Transform chainParent;
 
+	private GameLogic gameLogic;
+
+    private void Start()
+    {
+		gameLogic = GameLogic.Instance;
+    }
+
+    // Update is called once per frame
+    void Update()
+	{
+		// Check input
 		if (Input.GetKeyDown("space"))
 		{
-			Instantiate(chain, this.transform.position, Quaternion.identity);
+			// Check number of shots
+			if(gameLogic.activeNumberOfChains < gameLogic.activeRogueStats.maxChainShots)
+            {
+				Chain newChain = Instantiate(chain, this.transform.position, Quaternion.identity);
+				newChain.transform.parent = chainParent;
+				GameLogic.Instance.activeNumberOfChains++;
+			}
 		}
 	}
 }

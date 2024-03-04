@@ -11,6 +11,8 @@ public class ChainCollision : MonoBehaviour {
 			col.GetComponent<Ball>().Split();
 		}
 
+		// remove from active number of chains
+		GameLogic.Instance.activeNumberOfChains--;
 		Destroy(chain.gameObject);
 	}
 

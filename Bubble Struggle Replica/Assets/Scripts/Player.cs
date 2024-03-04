@@ -3,18 +3,24 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
-	public float speed = 4f;
-
 	public Rigidbody2D rb;
 
 	public Joystick joystick;
+
+	public int lives;
 
 	private float movement = 0f;
 
 	// Update is called once per frame
 	void Update () {
 		float inputForce = joystick.Horizontal;
-		movement = inputForce * speed;
+#if UNITY_EDITOR
+		if(inputForce == 0)
+        {
+			inputForce = Input.GetAxis("Horizontal");
+        }
+#endif
+		movement = inputForce * GameLogic.Instance.activeRogueStats.playerSpeed;
 	}
 
 	void FixedUpdate ()
