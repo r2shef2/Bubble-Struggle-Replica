@@ -13,15 +13,18 @@ public class Ball : MonoBehaviour {
 		rb.AddForce(startForce, ForceMode2D.Impulse);
 	}
 
-	public void Split ()
+	public void Split (float upwardsVelocity = 4)
 	{
 		if (nextBall != null)
 		{
 			GameObject ball1 = Instantiate(nextBall, rb.position + Vector2.right / 4f, Quaternion.identity);
 			GameObject ball2 = Instantiate(nextBall, rb.position + Vector2.left / 4f, Quaternion.identity);
 
-			ball1.GetComponent<Ball>().startForce = new Vector2(2f, 5f);
-			ball2.GetComponent<Ball>().startForce = new Vector2(-2f, 5f);
+			ball1.transform.parent = this.transform.parent;
+			ball2.transform.parent = this.transform.parent;
+
+			ball1.GetComponent<Ball>().startForce = new Vector2(2f, upwardsVelocity);
+			ball2.GetComponent<Ball>().startForce = new Vector2(-2f, upwardsVelocity);
 		}
 
 		Destroy(gameObject);

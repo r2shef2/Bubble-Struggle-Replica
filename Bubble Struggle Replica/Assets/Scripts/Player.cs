@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
 
 	private float movement = 0f;
 
+	public float upwardHitOnLife = 7f;
+
 	// Update is called once per frame
 	void Update () {
 		float inputForce = joystick.Horizontal;
@@ -30,10 +32,16 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
-		if (col.collider.tag == "Ball")
+		if (col.transform.GetComponent<Ball>() != null)
 		{
-			Debug.Log("GAME OVER!");
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			col.transform.GetComponent<Ball>().Split(upwardHitOnLife);
+
+			lives--;
+			if(lives == 0)
+            {
+				Debug.Log("GAME OVER!");
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			}
 		}
 	}
 
